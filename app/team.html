@@ -80,15 +80,17 @@
 				  <div class="row">
 					  <strong>Preferred Team Size: </strong> 					  
 					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
+						 <span class="badge">{{param.currentTeamSize}}</span>
 						  
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
 						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 
 						  
+
 					   </span>
+
+
 				   </div>
 				   
 				   
@@ -100,36 +102,36 @@
                   <div class="col-sm-6">
                      <h4>Team members</h4>
                      <!-- TODO: Show the current team member list -->
-					 
+                     <div>
+                     	<!--{{param.teamLeader}}-->
+                     	<select ng-model="" ng-options="x for x in param.teamMembers" id="selectChangeLeader">
+                     		<option value="" ng-click="changeleader(param.teamLeader, x)">Change your leader</option>
+                     	</select>
+                     </div>
+
+                     <br>
+
 					 <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn" ng-click="removeMember(member);">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
 						</button>
-					 </div>
-					 
+						<span style="float:right"><button type="button" class="btn btn-primary" ng-click="addleader(member);" >Add Leader</button></span>
+						<br><br>
+					 </div>	 
                   </div>
+
 
                   <div class="col-sm-6">
                      <h4>Requests received:</h4>
-
                      <!--TODO: Show the requests -->
-					 
 					 <div ng-repeat="r in requests">
 						<button type="button" class="btn" ng-click="processRequest(r);">
 							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
 						</button>
 					 </div>
-					 
                   </div>
+
 				</div>
-				  
-				  
-
-                  				  
-					
-                   
-                  
-
 
             </div>
 
