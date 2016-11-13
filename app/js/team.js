@@ -19,12 +19,19 @@ angular.module('teamform-team-app', ['firebase'])
 
 	var refPath = "";
 	var eventName = getURLParameter("q");	
+	var pLeader = "";
+	var nLeader = "";
 	
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"teamLeader" : [],
+		"teamLeaderSize" : 0,
+		"skills":[],
+		"personality":'',
+		"star": ''
 	};
 		
 	
@@ -177,7 +184,7 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 	
 	$scope.removeMember = function(member) {
-		
+		console.log(typeof(member));
 		var index = $scope.param.teamMembers.indexOf(member);
 		if ( index > -1 ) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
@@ -187,10 +194,44 @@ angular.module('teamform-team-app', ['firebase'])
 		
 	}
 	
-	
-	
-	
-	
-	
+	$scope.changeleader = function(member1, member2) {
+		console.log(typeof("member1"));
+		var index1 = $scope.param.teamLeader.indexOf(member1);
+		var index2 = $scope.param.teamLeader.indexOf(member2);
+
+		if ( index1 > -1 ) {
+			$scope.param.teamLeader.splice(index1, 1);
+			$scope.param.teamLeader.push(member2.uid);
+
+			$scope.saveFunc();
+		}
+		else {
+			$scope.param.teamLeader.splice(index2, 1);
+			$scope.param.teamLeader.push(member1.uid);
+
+			$scope.saveFunc();
+		}
+	}
+
+	$scope.addleader = function() {
+		if ($scope.param.teamLeaderSize == 0)
+		{
+			$scope.param.teamLeader.push($scope.uid);
+			$scope.param.teamLeaderSize++;
+		}	
+	}
+
+	$scope.addleader = function(member) {
+		
+		if ($scope.param.teamLeaderSize <= $scope.param.currentTeamSize)
+		{
+			$scope.param.teamLeaderSize++;
+			$scope.param.teamLeader.push(member);
+			$scope.param.teamMembers.splice($scope.param.teamMembers.indexOf(member), 1); // remove that item
+
+
+			$scope.saveFunc();
+		} 
+	}	
 		
 }]);
