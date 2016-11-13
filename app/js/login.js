@@ -52,8 +52,8 @@ $(document).ready(function(){
     });
 
     $("#btn_create_email_acc").click(function(){
-      var email = "vivtony00@yahoo.com.hk";
-      var password = "abcd1234";
+      var email = $('#input_email').val();
+      var password = $('#input_password').val();
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -78,22 +78,13 @@ $(document).ready(function(){
       });
     });
     $("#btn_login_email").click(function(){
-      var email = "vivtony00@yahoo.com.hk";
-      var password = "abcd1234";
+      var email = $('#input_email').val();
+      var password = $('#input_password').val();
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
-      });
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          console.log("User is signed in");
-        } else {
-          // No user is signed in.
-          console.log("No User is signed in");
-        }
       });
     });
 
@@ -110,15 +101,31 @@ $(document).ready(function(){
 
 
 
-angular.module('teamform-login-app', ['firebase'])
+angular.module('teamform-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$firebaseAuth', function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
   // Call Firebase initialization code defined in site.js
   initalizeFirebase();
   $scope.firebaseUser = null;
   $scope.message = null;
   $scope.error = null;
-
+  $scope.uid = null;
+  $scope.logedin =false;
+  $scope.profile= null;
   $scope.auth = $firebaseAuth();
+
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     $scope.firebaseUser = user;
+  //     $scope.message = "User is signed in as",user.uid;
+  //     $scope.uid = user.uid;
+  //     $scope.logedin =true;
+  //     console.log("User is signed in as",user.uid);
+  //   } else {
+  //     // No user is signed in.
+  //     console.log("No User is signed in");
+  //   }
+  // });
+
 
   $scope.loginValidation=function(){
     if($scope.username==null&&$scope.password==null){
@@ -136,30 +143,31 @@ angular.module('teamform-login-app', ['firebase'])
     .then(function(firebaseUser) {
 			$scope.firebaseUser=firebaseUser;
       $scope.message = "User created with uid: " + firebaseUser.uid;
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       $scope.error = error;
     });
   };
 
   $scope.emailLogin=function(){
+    if($scope.loginValidation()==false){
+      return false;
+    }
     // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
-    $scope.auth.$signInWithEmailAndPassword($scope.username, $scope.password)
-    .then(function(firebaseUser) {
-      $scope.firebaseUser=firebaseUser;
-      // console.log("Signed in as:", $scope.firebaseUser.uid);
-    }).catch(function(error) {
-      $scope.error = error;
+    firebase.auth().signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+      $scope.error = error.message;
       console.error("email Login failed(ng):", error);
     });
   };
 
   $scope.fbLogin=function(){
     $scope.auth.$signInWithPopup("facebook")
-    .then(function(result) {
-      $scope.firebaseUser = firebaseUser;
-      // console.log("FB Login successfully(ng)",user);
-    }).catch(function(error) {
-      $scope.error = error;
+    // .then(function(result) {
+    //   $scope.firebaseUser = firebaseUser;
+    //   // console.log("FB Login successfully(ng)",user);
+    // })
+    .catch(function(error) {
+      $scope.error = error.message;
       console.error("FB Login fail(ng)",error);
     });
   };
@@ -171,11 +179,26 @@ angular.module('teamform-login-app', ['firebase'])
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
       $scope.message = "Signed in as:"+ firebaseUser.uid;
-      console.log("Signed in as:", firebaseUser.uid);
+      $scope.logedin =true;
+      $scope.uid = firebaseUser.uid;
+      $scope.profile = getProfile(firebaseUser.uid);
+       console.log("Signed in as:", firebaseUser.uid);
     } else {
-      $scope.message = null;
+      $scope.logedin =false;
+      $scope.message = "Signed out";
       console.log("Signed out");
     }
   });
 
+  var getProfile = function(uid){
+    var path= "profile/"+uid;
+    var ref = firebase.database().ref(path);
+    var profile = $firebaseObject(ref);
+    profile.$loaded()
+      .catch(function(error) {
+        $scope.error = error.message;
+        console.error("Error:", error);
+      });
+    return profile;
+  }
 }]);
