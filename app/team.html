@@ -80,15 +80,17 @@
 				  <div class="row">
 					  <strong>Preferred Team Size: </strong> 					  
 					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
+						 <span class="badge">{{param.currentTeamSize}}</span>
 						  
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
 						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 
 						  
+
 					   </span>
+
+
 				   </div>
 				   
 				   
@@ -98,38 +100,47 @@
 
 				<div class="row">
                   <div class="col-sm-6">
+                  	{{param.teamLeader}}
                      <h4>Team members</h4>
                      <!-- TODO: Show the current team member list -->
-					 
+                    
+                     	<div>
+                     		<span>
+                     		 <select ng-model="" ng-change="setPLeader(x)" ng-options="x for x in param.teamLeader" id="selectLeaderToBeChanged">
+                     		 	<option value="" >Leader to Member</option>
+                     		 </select>
+                     		 &nbsp;
+                         
+                     		 <select ng-model="" ng-change="setNLeader(y)" ng-options="y for y in param.teamMembers" id="selectMemberToChange">
+                     			<option value="" >Member to Leader</option>
+                     		 </select>
+                     	  </span>
+                     		<button type="submit" ng-click="changeleader(pLeader, nLeader)" >Submit</button>
+
+                     	</div>
+                     <br>
+
 					 <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn" ng-click="removeMember(member);">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+						  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
 						</button>
-					 </div>
-					 
+						<span style="float:right"><button type="button" class="btn btn-primary" ng-click="addleader(member);" >Add Leader</button></span>
+						<br><br>
+					 </div>	 
                   </div>
+
 
                   <div class="col-sm-6">
                      <h4>Requests received:</h4>
-
                      <!--TODO: Show the requests -->
-					 
 					 <div ng-repeat="r in requests">
 						<button type="button" class="btn" ng-click="processRequest(r);">
 							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
 						</button>
 					 </div>
-					 
                   </div>
+
 				</div>
-				  
-				  
-
-                  				  
-					
-                   
-                  
-
 
             </div>
 
@@ -157,11 +168,24 @@
 
 
        </div>
-   </div>
-
+   </div> 
 
    <!-- JavaScript of this page -->
+   <script type="text/javascript">
+    var pLeader, nLeader;
 
+    function storePleader() {
+     	pLeader = document.getElementById("selectLeaderToBeChanged");
+     	document.getElementById('pLeaderV').innerHTML = pLeader[pLeader.selectedIndex].value;
+	   }
+
+     function storeNleader() {
+      nLeader = document.getElementById("selectMemberToChange");
+      document.getElementById('nLeaderV').innerHTML = nLeader[nLeader.selectedIndex].value;
+     }
+     
+   </script>
+ 
    <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
    <script src="lib/angular-route.min.js"></script>        
