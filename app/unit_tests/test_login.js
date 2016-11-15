@@ -45,8 +45,7 @@ describe('Test login.js', function() {
 			 $scope.password="abcd1234";
 			//  expect($scope.loginValidation()).toEqual(true);
 		 });
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	//  });
 	//  describe('Controller Test', function() {
 	// 	var $scope ={};
@@ -55,9 +54,6 @@ describe('Test login.js', function() {
 			// var controller = $controller('LoginCtrl', { $scope: $scope });
 			// expect($scope.emailAccCreate()).toEqual(false);
 
-=======
-=======
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
 		it('emailAccCreate test', function(done) {
 			spyOn($scope.auth, "$createUserWithEmailAndPassword").and.callFake(function(username,password) {
 				return {
@@ -65,10 +61,7 @@ describe('Test login.js', function() {
 					catch: function(callback) { return callback({message:null}); }
 				};
 			});
-<<<<<<< HEAD
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
-=======
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
+
 			$scope.username="abc@dfe.com";
 			$scope.password="abcd1234";
 			$scope.emailAccCreate();
@@ -116,25 +109,19 @@ describe('Test login.js', function() {
 	// });
 	// describe('Controller Test', function() {
 	// 	var $scope ={};
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		it('getProfile test', function() {
 			// var controller = $controller('LoginCtrl', { $scope: $scope });
 			var profile = controller.getProfile('AuwFEgdGENUHSsf1vbAMSoRe0W33');
 			// expect(profile).not.toBeNull();
 		});
-=======
-=======
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
+
 		// it('getProfile test', function() {
 		// 	// var controller = $controller('LoginCtrl', { $scope: $scope });
 		// 	var profile = controller.getProfile('AuwFEgdGENUHSsf1vbAMSoRe0W33');
 		// 	// expect(profile).not.toBeNull();
 		// });
-<<<<<<< HEAD
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
-=======
->>>>>>> 2e8e1192b264a28804fee9019cdfca93076cf5b8
+
 
 	});
 });
