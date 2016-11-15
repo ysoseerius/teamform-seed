@@ -11,6 +11,7 @@ describe('Test member.js', function() {
        $provide.value('$firebaseAuth',function(){
                 return{
                       $onAuthStateChanged:function(funct) {funct(user);return user;},
+                      retrieveOnceFirebase: function(firebase, refPath, funct) {funct(data); return data;}
                       };
            }
        );
@@ -215,3 +216,106 @@ describe('Test member.js', function() {
     });
    });
 });
+
+
+    describe("Test functions in member.js", function(){
+    	var user = {uid: "TEST1234ABC"};
+		var $scope={};
+    	var  controller;
+		// $scope = {};
+	//	beforeEach(function() {
+
+	//	   module('Simplift', 'firebase');
+	//	});
+
+		it("Load", function() {
+
+			controller = $controller('MemberCtrl', {$scope: $scope});
+			$scope.userID = '1234';
+			$scope.loadFunc();
+		});
+
+
+		it("Testing saving function without member defined", function() {
+
+			$scope.saveFunc();
+		});
+
+		it("Testing saving function for existing member", function() {
+			$scope.userID = "Exist";
+			$scope.userName = "Exist";
+			$scope.saveFunc();
+		});
+
+
+		it("Testing will advertise will be loaded from firebase", function() {
+			//$scope.auth.$onAuthStateChanged(firebaseUser);
+			//$scope.processRequest("23882U23uJHF83jEE");
+			spyOn($scope.advertisement, "$loaded").and.callThrough();
+			$scope.refreshAds();
+
+		});
+
+		it("test autoadd can remove one's selection", function() {
+
+			$scope.selection=[];
+			$scope.team=[{$id:'Foo'}];
+			$scope.selectall();
+			expect($scope.team.length).toBeGreaterThan(0);
+		});
+
+		it("Testing will team be loaded from firebase", function() {
+			// spyOn($scope.teams, "$loaded").and.callThrough();
+			$scope.refreshTeams();
+		});
+
+		it("Testing get profile", function() {
+			// spyOn($scope.profile, "$loaded").and.callThrough();
+			$scope.getProfile();
+		});
+
+		it("Testing skillsmatch", function() {
+
+			//event defined team size = (2, 10)
+			//$scope.range.minTeamSize = 2;
+			//$scope.range.maxTeamSize = 10;
+
+			// spyOn($scope.profile, "$loaded").and.callThrough();
+			$scope.skillsmatch();
+
+		});
+
+
+		it("Testing personality search", function() {
+
+			//event defined team size = (2, 10)
+			//$scope.range.minTeamSize = 2;
+			//$scope.range.maxTeamSize = 10;
+
+			// spyOn($scope.profile, "$loaded").and.callThrough();
+			$scope.personalitymatch();
+		});
+
+		it("Testing star match", function() {
+
+			//event defined team size = (2, 10)
+			//$scope.range.minTeamSize = 2;
+			//$scope.range.maxTeamSize = 10;
+
+			// spyOn($scope.profile, "$loaded").and.callThrough();
+			$scope.starmatch();
+
+		});
+
+		it("Testing largerthan", function() {
+			var item ={};
+			item.teamMembers = [{id:'hi'}];
+			item.currentTeamSize = 10;
+			item.currentTeamLeaderSize = 3;
+			var val = 0;
+			$scope.largerthan(val);
+			expect(val).toBeLessThan(7);
+		});
+
+
+	});
