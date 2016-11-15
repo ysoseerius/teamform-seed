@@ -169,7 +169,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 	{
 		var teamID = $.trim( $scope.param.teamName );
 		var eventName = getURLParameter("q");
-		var refPath = "/events/" + eventName + "/team/" + teamID ;
+		var refPath = "/events/" + eventName + "/team/" + teamID;
 		retrieveOnceFirebase(firebase, refPath, function(data)
 		{
 			// $scope.updateScope("teamMembers", teamMembers);
