@@ -13,7 +13,7 @@ describe('Test login.js', function() {
 				$provide.value('$firebaseAuth',function(){
 							return {	$createUserWithEmailAndPassword: function(username, password) {return {then: function(callback) {return callback(user);}};},
 												signInWithEmailAndPassword: function(username,password) {return {catch: function(callback) { return callback({message:null}); }};},
-												$signOut: function() { return user;},
+												$signOut: function() { return null;},
 												$onAuthStateChanged:function(funct) {funct(user);return user;},
 												$signInWithPopup:function(way){return {catch: function(callback) { return callback({message:null}); }};}
 											};
@@ -57,9 +57,6 @@ describe('Test login.js', function() {
 			$scope.emailAccCreate();
 			expect($scope.error).toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-	// 	var $scope ={};
 		it('emailLogin test', function() {
 			$scope.error=null;
 			$scope.firebaseUser=null;
@@ -67,11 +64,7 @@ describe('Test login.js', function() {
 			$scope.emailLogin();
 			expect($scope.error).toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-		// var $scope ={};
 		it('fbLogin test', function() {
-			// var controller = $controller('LoginCtrl', { $scope: $scope });
 			$scope.error=null;
 			spyOn($scope.auth, "$signInWithPopup").and.callThrough();
 			$scope.fbLogin();
@@ -88,22 +81,16 @@ describe('Test login.js', function() {
 			$scope.fbLogin();
 			expect($scope.error).not.toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-		// var $scope ={};
 		it('signOut test', function() {
+			spyOn($scope.auth, "$onAuthStateChanged").and.callFake(function(funct) {funct(null);return null;});
 			spyOn($scope.auth, "$signOut").and.callThrough();
 			$scope.signOut();
+			expect($scope.message).toEqual("Signed out");
 		});
 
-	// });
-	// describe('Controller Test', function() {
-	// 	var $scope ={};
-		// it('getProfile test', function() {
-		// 	// var controller = $controller('LoginCtrl', { $scope: $scope });
-		// 	var profile = controller.getProfile('AuwFEgdGENUHSsf1vbAMSoRe0W33');
-		// 	// expect(profile).not.toBeNull();
-		// });
+		it('js button test',function(){
+			$("#btn_admin").click();
+		});
 
 	});
 });
