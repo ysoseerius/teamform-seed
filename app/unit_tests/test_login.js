@@ -3,7 +3,7 @@ describe('Test login.js', function() {
    //
    // Example: A test case of getRandomIntInclusive
    //
-	 var $controller,$firebaseAuth;
+	 var $controller,$firebaseAuth,$firebaseObject;
 	 beforeEach(function(){
       module('teamform-app');
 
@@ -11,12 +11,19 @@ describe('Test login.js', function() {
 				var user = {uid : "1234"};
 				// Fake StoreService Implementation returning a promise
 				$provide.value('$firebaseAuth',function(){
-							return {	$createUserWithEmailAndPassword: function(username, password) {return {then: function(callback) {return callback(user);}};},
+							return {	$createUserWithEmailAndPassword: function(username, password) {return {then: function(callback) {return callback(user);} ,catch:function(callback){return callback("error");}};},
 												signInWithEmailAndPassword: function(username,password) {return {catch: function(callback) { return callback({message:null}); }};},
-												$signOut: function() { return user;},
+												$signOut: function() { return null;},
 												$onAuthStateChanged:function(funct) {funct(user);return user;},
 												$signInWithPopup:function(way){return {catch: function(callback) { return callback({message:null}); }};}
 											};
+						}
+				);
+
+				$provide.value('$firebaseObject',function(ref){
+							return {
+								$loaded: function() {return {catch: function(callback) {return callback("error");}};}
+							};
 						}
 				);
 				return null;
@@ -24,9 +31,10 @@ describe('Test login.js', function() {
 
 
       inject(
-        function(_$controller_,_$firebaseAuth_){
+        function(_$controller_, _$firebaseAuth_, _$firebaseObject_){
           $controller=_$controller_;
 					$firebaseAuth=_$firebaseAuth_;
+					$firebaseObject = _$firebaseObject_
         }
       );
     });
@@ -43,45 +51,36 @@ describe('Test login.js', function() {
 			 expect($scope.loginValidation()).toEqual(false);
 			 $scope.username="abc@dfe.com";
 			 $scope.password="abcd1234";
-			//  expect($scope.loginValidation()).toEqual(true);
+			 expect($scope.loginValidation()).toEqual(true);
 		 });
-
-	//  });
-	//  describe('Controller Test', function() {
-	// 	var $scope ={};
-	 //
-		it('emailAccCreate test', function() {
-			// var controller = $controller('LoginCtrl', { $scope: $scope });
-			// expect($scope.emailAccCreate()).toEqual(false);
-
 		it('emailAccCreate test', function(done) {
-			spyOn($scope.auth, "$createUserWithEmailAndPassword").and.callFake(function(username,password) {
-				return {
-					then: function(callback) { return callback(user); },
-					catch: function(callback) { return callback({message:null}); }
-				};
-			});
-
+			spyOn($scope.auth, "$createUserWithEmailAndPassword").and.callThrough();
+			$scope.error=null;
+			$scope.username=null;
+			$scope.password=null;
+			$scope.emailAccCreate();
 			$scope.username="abc@dfe.com";
 			$scope.password="abcd1234";
 			$scope.emailAccCreate();
 			expect($scope.error).toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-	// 	var $scope ={};
 		it('emailLogin test', function() {
+			$scope.username="abc@dfe.com";
+			$scope.password="abcd1234";
 			$scope.error=null;
 			$scope.firebaseUser=null;
 			spyOn($scope.auth, "signInWithEmailAndPassword").and.callThrough();
 			$scope.emailLogin();
 			expect($scope.error).toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-		// var $scope ={};
+		it('emailLogin fail test', function() {
+			$scope.username=null;
+			$scope.password=null;
+			spyOn($scope.auth, "signInWithEmailAndPassword").and.callThrough();
+			$scope.emailLogin();
+			expect($scope.error).toBeNull();
+		});
 		it('fbLogin test', function() {
-			// var controller = $controller('LoginCtrl', { $scope: $scope });
 			$scope.error=null;
 			spyOn($scope.auth, "$signInWithPopup").and.callThrough();
 			$scope.fbLogin();
@@ -98,30 +97,15 @@ describe('Test login.js', function() {
 			$scope.fbLogin();
 			expect($scope.error).not.toBeNull();
 		});
-	// });
-	// describe('Controller Test', function() {
-		// var $scope ={};
 		it('signOut test', function() {
+			spyOn($scope.auth, "$onAuthStateChanged").and.callFake(function(funct) {funct(null);return null;});
 			spyOn($scope.auth, "$signOut").and.callThrough();
 			$scope.signOut();
 		});
-
-	// });
-	// describe('Controller Test', function() {
-	// 	var $scope ={};
-
-		it('getProfile test', function() {
-			// var controller = $controller('LoginCtrl', { $scope: $scope });
-			var profile = controller.getProfile('AuwFEgdGENUHSsf1vbAMSoRe0W33');
-			// expect(profile).not.toBeNull();
+		it('get profile', function() {
+			spyOn($scope.profile, "$loaded").and.callThrough();
+			spyOn($scope.auth, "$signOut").and.callThrough();
+			controller.getProfile();
 		});
-
-		// it('getProfile test', function() {
-		// 	// var controller = $controller('LoginCtrl', { $scope: $scope });
-		// 	var profile = controller.getProfile('AuwFEgdGENUHSsf1vbAMSoRe0W33');
-		// 	// expect(profile).not.toBeNull();
-		// });
-
-
 	});
 });
