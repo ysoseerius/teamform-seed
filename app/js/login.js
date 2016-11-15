@@ -3,7 +3,6 @@ angular.module('teamform-app', ['firebase'])
 
   // Call Firebase initialization code defined in site.js
   initalizeFirebase();
-  $scope.firebaseUser = null;
   $scope.message = null;
   $scope.error = null;
   $scope.uid = null;
@@ -42,10 +41,6 @@ angular.module('teamform-app', ['firebase'])
 
   $scope.fbLogin=function(){
     $scope.auth.$signInWithPopup("facebook")
-    // .then(function(result) {
-    //   $scope.firebaseUser = firebaseUser;
-    //   // console.log("FB Login successfully(ng)",user);
-    // })
     .catch(function(error) {
       $scope.error = error.message;
       console.error("FB Login fail(ng)",error);
@@ -59,13 +54,13 @@ angular.module('teamform-app', ['firebase'])
   var getProfile = function(uid){
     var path= "profile/"+uid;
     var ref = firebase.database().ref(path);
-    var profile = $firebaseObject(ref);
-    profile.$loaded()
+    $scope.profile = $firebaseObject(ref);
+    $scope.profile.$loaded()
       .catch(function(error) {
         $scope.error = error.message;
         console.error("Error:", error);
       });
-    return profile;
+    return $scope.profile;
   }
   this.getProfile = getProfile;
 
