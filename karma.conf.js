@@ -18,7 +18,8 @@ module.exports = function(config) {
     'js/*.min.js',
     'js/firechat-ui.js',
     'js/firebase.js',
-    'js/jquery.parallax-1.1.3-min.js'
+    'js/jquery.parallax-1.1.3-min.js',
+    'js/index.js'
 	],
 	preprocessors: {
 		 'js/site.js' : ['coverage'],
