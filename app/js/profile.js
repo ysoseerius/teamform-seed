@@ -2,15 +2,13 @@
 
 
 angular.module('teamform-profile-app', ['firebase'])
-.controller('profileinput', ['$firebaseAuth','$scope', '$firebaseObject', '$firebaseArray', 
+.controller('profileinput', ['$firebaseAuth','$scope', '$firebaseObject', '$firebaseArray',
 function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
 	// Implementation the todoCtrl
     $scope.uid = null;
     $scope.picdefault = "https://firebasestorage.googleapis.com/v0/b/team-long-time-no-name.appspot.com/o/user.jpg?alt=media&token=c071e226-b03d-49a8-8f1f-2d3c6c9565c7"
     initalizeFirebase();
-
-
     $scope.input = {
       name: "Username",
       gender: "Male",
@@ -19,34 +17,22 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 			star: "Virgo",
       location:"Tsuen Wan".toLowerCase(),
       description:"Hello world"
-
 		};
     $scope.personality = "";
     $scope.pic = "";
     $scope.like = [];
     $scope.check = false;
 
+    $scope.checkifuser = function(){
+      console.log($scope.profile.uid);
+      if($scope.uid != $scope.profile.uid){
 
-    $scope.auth=$firebaseAuth();
-    $scope.auth.$onAuthStateChanged(function(firebaseUser) {
-      if (firebaseUser) {
-        $scope.uid = firebaseUser.uid;
-
-        console.log("Signed in as:", firebaseUser.uid);
-        var profileID = getURLParameter("uid");
-
-        if(profileID!=null && profileID!=undefined){
-          console.log("profileID",profileID);
-          $scope.profile=getProfile(profileID);
-        }else{
-          $scope.profile=getProfile($scope.uid);
-
-        }
-
-      } else {
-        console.log("Signed out");
+        $scope.check = true;
+      }else{
+        $scope.check = false;
       }
-    });
+
+    }
 
     var getProfile = function(uid){
       var path= "profile/"+uid;
@@ -76,29 +62,39 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           // Database connection error handling...
           console.error("Error:", error);
         });
-
         return $scope.profile;
     }
+
+    $scope.auth=$firebaseAuth();
+    $scope.auth.$onAuthStateChanged(function(firebaseUser) {
+      if (firebaseUser) {
+        $scope.uid = firebaseUser.uid;
+
+        console.log("Signed in as:", firebaseUser.uid);
+        var profileID = getURLParameter("uid");
+
+        if(profileID!=null && profileID!=undefined){
+          console.log("profileID",profileID);
+          $scope.profile=getProfile(profileID);
+        }else{
+          $scope.profile=getProfile($scope.uid);
+
+        }
+
+      } else {
+        console.log("Signed out");
+      }
+    });
+
+
 
     $scope.saveProfile = function() {
 
       if ( $scope.input.name !="" && $scope.input.gender!="" && $scope.input.birth !="" && $scope.input.star !="" && $scope.input.location !="" && $scope.input.description !=""  ) {
-        // $scope.input.date = new Date().toString();
-        // $scope.input.likes = 0;
-        // add an input question
-
         for (var key in $scope.input) {
-
             $scope.profile[key] = $scope.input[key];
-
         }
         console.log("saveprofile");
-        // $scope.profile.name = $scope.input.name;
-        // $scope.profile.gender = $scope.input.gender;
-        // $scope.profile.birth = $scope.input.birth;
-        // $scope.profile.star = $scope.input.star;
-        // $scope.profile.location = $scope.input.location;
-        // $scope.profile.description = $scope.input.description;
 
         $scope.profile.$save();
       }
@@ -118,12 +114,11 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
         if(typeof $scope.profile["skills"]=="undefined"){$scope.profile["skills"]=[];}
         $scope.profile["skills"].push($scope.SkillTemp);
         $scope.profile.$save();
-
     }
     $scope.removeSkill = function(e){
-        var i = $scope.profile.skills.indexOf(e);
-        if (i != -1){
-          $scope.profile.skills.splice(i,1);
+        $scope.item = $scope.profile.skills.indexOf(e);
+        if ($scope.item != -1){
+          $scope.profile.skills.splice($scope.item,1);
           $scope.profile.$save();
         }
 
@@ -261,18 +256,18 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
                 }
               }
 
-              var score = 0;
+              $scope.score = 0;
               $scope.showAns = function(){
                 for (var a=0;a<$scope.answer.length;a++){
                   for (var b=1;b<=$scope.questions[a].choices.length;b++){
 
                     if ($scope.answer[a] == ("option"+b)){
-                      score+=b;
+                      $scope.score+=b;
                     }
                   }
                 }
                 for (var c=0;c<$scope.presetpersonality.length;c++){
-                  if (score%$scope.presetpersonality.length == c){
+                  if ($scope.score%$scope.presetpersonality.length == c){
                     $scope.profile.personality = $scope.presetpersonality[c];
                     $scope.profile.$save();
                     $("#test").hide();
@@ -285,30 +280,21 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
 
           $scope.likeFunction = function(){
-              var count = -1;
+              $scope.count_like = -1;
 
               for (var a=0;a<=$scope.profile.like.length;a++){
                 if ($scope.uid != $scope.profile.like[a] && $scope.uid != $scope.profile.uid){
-                  count++;
+                  $scope.count_like++;
                 }
               }
-              if (count == ($scope.profile.like.length)){
+              if ($scope.count_like == ($scope.profile.like.length)){
                 $scope.profile.like.push($scope.uid);
                 $scope.profile.$save();
               }
 
           }
 
-          $scope.checkifuser = function(){
-            console.log($scope.profile.uid);
-            if($scope.uid != $scope.profile.uid){
 
-              $scope.check = true;
-            }else{
-              $scope.check = false;
-            }
-
-          }
 
 
 
