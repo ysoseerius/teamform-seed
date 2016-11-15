@@ -1,21 +1,38 @@
 describe("Test team.js", function() {
 
 	//injection
- 	var $controller;
+ 	var $controller, $firebaseAuth;;
 	beforeEach(function(){
       module('teamform-team-app');
-      inject(function(_$controller_){
+	  module(function($provide) {
+		var user = {uid : "TEST1234ABC"};
+		// Fake StoreService Implementation returning a promise
+		$provide.value('$firebaseAuth',function(){
+		return {
+			//$createUserWithEmailAndPassword: function(username, password) {return {then: function(callback) {return callback(user);}};},
+			//signInWithEmailAndPassword: function(username,password) {return {catch: function(callback) { return callback({message:null}); }};},
+			//$signOut: function() { return user;},
+			$onAuthStateChanged:function(funct) {funct(user);return user;},
+			retrieveOnceFirebase: function(firebase, refPath, funct) {funct(data); return data;}
+			//$signInWithPopup:function(way){return {catch: function(callback) { return callback({message:null}); }};}
+			};
+		});
+		return null;
+	  });
+      inject(function(_$controller_, _$firebaseAuth_){
           $controller=_$controller_;
+          $firebaseAuth=_$firebaseAuth_;
 	  });
 	
 	});
 	
     
     describe("Test functions in team.js", function(){
-        var $scope, controller;
+    	var user = {uid: "TEST1234ABC"};
+    	var $scope, controller;
 		//$scope = {};
 	//	beforeEach(function() {
-		   $scope = {};
+		$scope = {};
 	//	   module('Simplift', 'firebase');
 	//	});
 		
@@ -204,13 +221,77 @@ describe("Test team.js", function() {
 			expect($scope.param.wantedPersonalities).toContain("Smart");
 		});
 		
+		it("Testing add wanted personality if personality already exists", function(){
+			$scope.param.wantedPersonalities = ["Clever", "Outgoing", "Leadership"];
+			$scope.addWantedPersonalities("Outgoing");
+			expect($scope.param.wantedPersonalities).toEqual(["Clever", "Outgoing", "Leadership"]);
+		});
+		
 		it("Testing add wanted horoscope", function(){
 			$scope.addWantedHoroscopes("Leo");
 			expect($scope.param.wantedHoroscopes).toContain("Leo");
 		});
 		
+		it("Testing add wanted horoscope if horoscope already exists", function(){
+			$scope.param.wantedHoroscopes = ["Leo", "Aries"];
+			$scope.addWantedHoroscopes("Aries");
+			expect($scope.param.wantedHoroscopes).toEqual(["Leo", "Aries"]);
+		});
+		
+		it("Testing remove wanted skill if skill exists", function(){
+			$scope.param.wantedSkills = ["JavaScript", "C++", "C#", "Python", "php"];
+			$scope.removeWantedSkill("JavaScript");
+			expect($scope.param.wantedSkills).toEqual(["C++", "C#", "Python", "php"]);
+		});
+		
+		it("Testing remove wanted skill if skill doesn't exist", function(){
+			$scope.param.wantedSkills = ["JavaScript", "C++", "C#", "Python", "php"];
+			$scope.removeWantedSkill("Ruby");
+			expect($scope.param.wantedSkills).toEqual(["JavaScript", "C++", "C#", "Python", "php"]);
+		});
+		
+		it("Testing remove wanted personality if personality already exists", function(){
+			$scope.param.wantedPersonalities = ["Handsome", "Focused", "Quiet", "Friendly", "Sociable"];
+			$scope.removeWantedPersonalities("Handsome");
+			expect($scope.param.wantedPersonalities).toEqual(["Focused", "Quiet", "Friendly", "Sociable"]);
+		});
+		
+		it("Testing remove wanted personality if personality doesn't exist", function(){
+			$scope.param.wantedPersonalities = ["Handsome", "Focused", "Quiet", "Friendly", "Sociable"];
+			$scope.removeWantedPersonalities("Cool");
+			expect($scope.param.wantedPersonalities).toEqual(["Handsome", "Focused", "Quiet", "Friendly", "Sociable"]);
+		});
+		
+		it("Testing remove wanted horoscope if horoscope already exists", function(){
+			$scope.param.wantedHoroscopes = ["Leo", "Virgo", "Capricorn", "Sagittarius"];
+			$scope.removeWantedHoroscopes("Leo");
+			expect($scope.param.wantedHoroscopes).toEqual(["Virgo", "Capricorn", "Sagittarius"]);
+		});
+		
+		it("Testing remove wanted horoscope if horoscope doesn't exist", function(){
+			$scope.param.wantedHoroscopes = ["Leo", "Virgo", "Capricorn", "Sagittarius"];
+			$scope.removeWantedHoroscopes("Libra");
+			expect($scope.param.wantedHoroscopes).toEqual(["Leo", "Virgo", "Capricorn", "Sagittarius"]);
+		});
+		
 		it("Testing auto add", function(){
 			$scope.autoadd();
+		});
+		
+		it("Testing update scope", function(){
+			$scope.updateScope("teamMembers", $scope.param.teamMembers);
+		});
+		
+		it("Testing calculateNumPrettyGirls", function(){
+			$scope.calculateNumPrettyGirls();
+		});
+		
+		it("Testing advertise", function(){
+			$scope.advertise();
+		});
+		
+		it("Testing create time", function(){
+			$scope.createteam();
 		});
 	});
 	
