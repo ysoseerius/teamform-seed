@@ -169,7 +169,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 	{
 		var teamID = $.trim( $scope.param.teamName );
 		var eventName = getURLParameter("q");
-		var refPath = eventName + "/team/" + teamID ;
+		var refPath = "/events/" + eventName + "/team/" + teamID;
 		retrieveOnceFirebase(firebase, refPath, function(data)
 		{
 			$scope.updateScope("teamMembers", teamMembers);
@@ -200,7 +200,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 	{
 		//$scope.test = "processRequest: " + r;
 		if( $scope.param.teamMembers.indexOf(r) < 0 &&
-			$scope.param.teamMembers.length < $scope.param.currentTeamSize  )
+			$scope.param.teamMembers.length + $scope.param.currentTeamLeaderSize < $scope.param.currentTeamSize  )
 		{
 			// Not exists, and the current number of team member is less than the preferred team size
 			$scope.param.teamMembers.push(r);
