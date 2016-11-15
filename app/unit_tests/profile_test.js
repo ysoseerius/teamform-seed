@@ -154,12 +154,12 @@ describe('Test profile.js', function() {
 
     });
 
-    it('test uploadFile function', function(){
-      spyOn($scope.profile, "$save").and.callThrough();
-      var selectedFile = 0;
-      $scope.uploadFile();
-
-    });
+    // it('test uploadFile function', function(){
+    //   spyOn($scope.profile, "$save").and.callThrough();
+    //   var selectedFile = 0;
+    //   $scope.uploadFile();
+    //
+    // });
 
 
    });
