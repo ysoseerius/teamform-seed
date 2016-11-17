@@ -173,8 +173,7 @@ angular.module('teamform-member-app', ['firebase'])
           console.error("Error:", error);
         });
         return $scope.profile;
-    }
-
+  };
 
 	$scope.skillsmatch = function() {
 
@@ -278,11 +277,10 @@ $scope.sizeText = 0;
 $scope.largerthan = function(val){
 
 	return function(item){
-		console.log(item.teamMembers, item.currentTeamSize);
 	if ( typeof item.teamMembers != "undefined" && typeof item.teamMembers != "null")
-	{console.log("inside If",item.currentTeamSize , item.teamMembers.length , item.teamLeaderSize);
+	{
 		return item.currentTeamSize - item.teamMembers.length - item.currentTeamLeaderSize >= val;}
-	else {console.log("Else",item.currentTeamSize , item.teamLeaderSize);
+	else {
 		return (item.currentTeamSize - item.currentTeamLeaderSize >= val);
 	}
 	}

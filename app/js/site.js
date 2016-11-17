@@ -25,9 +25,8 @@ function getRandomIntInclusive(min, max) {
 // Please change this function accordingly
 // Reference: https://console.firebase.google.com
 //
-
+var firebaseInitalized =false;
 function initalizeFirebase() {
-
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
@@ -36,8 +35,10 @@ function initalizeFirebase() {
     storageBucket: "team-long-time-no-name.appspot.com",
     messagingSenderId: "7595823211"
   };
-  firebase.initializeApp(config);
-
+  if(firebaseInitalized==false){
+    firebase.initializeApp(config);
+    firebaseInitalized=true;
+  }
 }
 
 //
