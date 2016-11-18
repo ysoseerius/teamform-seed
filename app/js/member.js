@@ -189,11 +189,11 @@ angular.module('teamform-member-app', ['firebase'])
 		 			var team = new Array();
 		 			team[teamindex] = $scope.teams[teamindex];
 		 			team[teamindex].score = 0;
-					console.log("team_skills",$scope.teams[teamindex].skills);
+					console.log("team_skills",$scope.teams[teamindex].wantedSkills);
 		 			for (skillsindex=0; skillsindex< $scope.profile.skills.length; skillsindex++) {
-			        	if (team[teamindex].skills){
+			        	if (team[teamindex].wantedSkills){
 			        		console.log("skills exists");
-				        	if(team[teamindex].skills.indexOf($scope.profile.skills[skillsindex]) > -1) {
+				        	if(team[teamindex].wantedSkills.indexOf($scope.profile.skills[skillsindex]) > -1) {
 				        		console.log("if they are the same");
 				        		team[teamindex].score++;}
 			        	}
@@ -222,10 +222,10 @@ angular.module('teamform-member-app', ['firebase'])
 	 				team[teamindex] = $scope.teams[teamindex];
 	 				team[teamindex].score = 0;
 
-	        		if (team[teamindex].personality){
+	        		if (team[teamindex].wantedPersonalities){
 	        			console.log("personality exists");
 
-	        			if(team[teamindex].personality.indexOf($scope.profile.personality) > -1) {
+	        			if(team[teamindex].wantedPersonalities.indexOf($scope.profile.personality) > -1) {
 	        				console.log("if they are the same");
 	        				team[teamindex].score++;
 	        			}
@@ -255,10 +255,10 @@ $scope.starmatch = function() {
 		 			team[teamindex] = $scope.teams[teamindex];
 		 			team[teamindex].score = 0;
 
-		        		if (team[teamindex].star){
+		        		if (team[teamindex].wantedHoroscopes){
 		        			console.log("star exists");
 
-		        			if(team[teamindex].star.indexOf($scope.profile.star) > -1) {
+		        			if(team[teamindex].wantedHoroscopes.indexOf($scope.profile.star) > -1) {
 		        				console.log("if they are the same");
 		        				team[teamindex].score++;
 		        			}
