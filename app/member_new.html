@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" ng-app="teamform-app">
+<html lang="en" class="no-js" ng-app="teamform-member-app">
 
 <head>
     <meta charset="utf-8">
@@ -171,66 +171,136 @@
                     <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="main-menu">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#home">
-                            <span class="main-link">Home</span>
-                            <span class="additional-info-link bracket">
-                                start here
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            <span class="main-link">About</span>
-                            <span class="additional-info-link bracket">
-                                what it is
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#flow">
-                            <span class="main-link">Getting started</span>
-                            <span class="additional-info-link bracket">
-                                how to use
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#team">
-                            <span class="main-link">Team</span>
-                            <span class="additional-info-link bracket">
-                                our works
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </div>
-
-    <div class="section-home" id="home">
+    <div class="standard-section section-promo section-counter" id="counter">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
         <div class="overlay"></div>
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <div class="home-container">
-                <div class="hex-shape"><i class="glyphicon glyphicon-tower" aria-hidden="true" style="margin-top: 25px;"></i></div>
-                <div class="clearfix"></div>
-                <h2 class="digit-header">teamform</h2>
-                <h3 class="signature-header"><small>By Team<strong> Long Time No Name</strong></small></h3>
-                <h1 class="system-header">A real-time online team forming app</h1>
-                <p style="margin-bottom: 0px;">Enter a event name</p>
-                  <div class="row" style="margin-bottom: 10px;"><div class="col-xs-12 col-md-6 "><input id="input_text" type="text" class="form-control col-xs-12 col-md-6 col-md-offset-6"></div></div>
-                  <a id="btn_member" class="btn btn-border btn-default" title="Search">
-                      <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
-                  </a>
+            <div class="text-center">
+                <h2 class="digit-header">Event Page</h2>
+                <h2 id="text_event_name" class="system-header"></h2>
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">time is running out, lets join a team</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Time left</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+            <div class="clock" id="clock">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-65p-top="transform[swing]:rotate(0deg)">
+                                <span class="days"></span>
+                            </span>
+                            <span class="countdown-label">days</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-70p-top="transform[swing]:rotate(0deg)">
+                                <span class="hours"></span>
+                            </span>
+                            <span class="countdown-label">hours</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-75p-top="transform[swing]:rotate(0deg)">
+                                <span class="mins"></span>
+                            </span>
+                            <span class="countdown-label">minutes</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-80p-top="transform[swing]:rotate(0deg)">
+                                <span class="secs"></span>
+                            </span>
+                            <span class="countdown-label">seconds</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="home-bg"></div>
     </div>
+    <div class="standard-section section-team" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Teams</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-users" aria-hidden="true"></i></div>
+            </div>
+            <div id="member_page_controller" ng-controller="MemberCtrl">
+              <div class="row">
+                 <div class="col-md-2 col-xs-2"></div>
+                 <div class="col-md-8 col-xs-8 panel">
+                    <form class="form-horizontal">
+                       <div class="form-group">
+                          <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
+                          <div class="col-sm-5">
+                          <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                          </div>
 
-    <div class="standard-section section-about" id="about">
+                          <div class="col-sm-4">
+                            <button type="button" class="btn btn-default" ng-click="saveFunc();" >Add/Modify</button>
+                            <button type="button" class="btn btn-default" ng-click="loadFunc();" >Load</button>
+                          </div>
+                       </div>
+
+                       <div class="form-group">
+                          <label for="inputName" class="col-sm-3 control-label">Name</label>
+                          <div class="col-sm-9">
+                          <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                          </div>
+                       </div>
+                       <button type="button" class="btn btn-default" ng-click="skillsmatch();" >Skill match</button>
+                       <button type="button" class="btn btn-default" ng-click="personalitymatch();" >Personality match</button>
+                       <button type="button" class="btn btn-default" ng-click="starmatch();" >Star match</button>
+
+                    </form>
+
+                <div class="row text-left">
+                   <label>Search: <input ng-model="searchText"></label>
+               <label>Size: <input ng-model="sizeText" type="number"></label>
+               <h3>Recruiting:</h3>
+               <div ng-repeat="advertisement in advertisements">
+                 {{advertisement.$id}}:{{advertisement.content}}
+               </div>
+               <button type="button" class="btn btn-primary" ng-click="selectall();" >iDon'tCare</button>
+                 <h3>Your team preference(s):</h3>
+               <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
+                <div class="checkbox">
+                 <label><input type="checkbox" value="{{team.$id}}"
+                   ng-checked="selection.indexOf(team.$id) > -1"
+                   ng-click="toggleSelection(team.$id)">
+                 {{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
+                 <!-- {{team.teamMembers}} -->
+                 </label>
+                </div>
+
+               </div>
+
+               <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+             </div>
+
+
+                 </div>
+                 <div class="col-md-2 col-xs-2"></div>
+              </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="standard-section section-about" id="about">
         <div class="container">
             <div class="text-center">
                 <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what it is</h3>
@@ -440,7 +510,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <footer class="footer text-center" id="follow-us">
         <div class="container">
             <ul class="list-inline">
@@ -558,7 +628,7 @@
     <script src="lib/angularfire.min.js"></script>
     <!-- Log in control -->
     <script src="js/index.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/member.js"></script>
 
 </body>
 </html>
