@@ -262,22 +262,98 @@
                           <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
                           </div>
                        </div>
-                       <button type="button" class="btn btn-default" ng-click="skillsmatch();" >Skill match</button>
-                       <button type="button" class="btn btn-default" ng-click="personalitymatch();" >Personality match</button>
-                       <button type="button" class="btn btn-default" ng-click="starmatch();" >Star match</button>
-
+                       <div class="form-group">
+                          <label class="col-sm-3 control-label">Search: </label>
+                          <div class="col-sm-3">
+                            <input type="text" ng-model="searchText" class="form-control">
+                          </div>
+                          <label class="col-sm-3 control-label">Size: </label>
+                          <div class="col-sm-3">
+                            <input type="number" ng-model="sizeText" class="form-control">
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <a type="button" class="btn btn-default" ng-click="skillsmatch();" ><i class="glyphicon glyphicon-education" aria-hidden="true"></i> Skill match</a>
+                          <a type="button" class="btn btn-default" ng-click="personalitymatch();" ><i class="glyphicon glyphicon-king" aria-hidden="true"></i> Personality match</a>
+                          <a type="button" class="btn btn-default" ng-click="starmatch();" ><i class="glyphicon glyphicon-star" aria-hidden="true"></i> Star match</a>
+                          <a type="button" class="btn btn-default" ng-click="selectall();"><i class="glyphicon glyphicon-random" aria-hidden="true"></i> I Don't Care</a>
+                       </div>
                     </form>
 
                 <div class="row text-left">
-                   <label>Search: <input ng-model="searchText"></label>
-               <label>Size: <input ng-model="sizeText" type="number"></label>
+
                <h3>Recruiting:</h3>
-               <div ng-repeat="advertisement in advertisements">
-                 {{advertisement.$id}}:{{advertisement.content}}
+               <div class="row">
+                 <div class="col-sm-6 col-md-4" ng-repeat="advertisement in advertisements">
+                     <div class="requirement-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                         <div class="row">
+                             <div class="col-xs-3">
+                                 <div class="requirement-icon">
+                                     <i class="fa fa-cog" aria-hidden="true"></i>
+                                 </div>
+                             </div>
+                             <div class="col-xs-9">
+                                 <div class="requirement-description">
+                                     <h3>{{advertisement.$id}}</h3>
+                                     <p>{{advertisement.content}}</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     {{advertisement.$id}}:{{advertisement.content}}
+                 </div>
                </div>
-               <button type="button" class="btn btn-primary" ng-click="selectall();" >iDon'tCare</button>
+
                  <h3>Your team preference(s):</h3>
                <div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
+                 <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1" class="skrollable skrollable-before" style="transform: translateX(25px); opacity: 0;">
+                   <div class="row">
+                     <div class="col-xs-12 col-sm-6 col-md-12">
+                       <div class="well well-sm" style="background-color: #535353;border: 1px solid #ffd500;">
+                         <div class="row">
+                           <div class="col-sm-6 col-md-2">
+                             <img src="http://placehold.it/158x158" class="img-rounded img-responsive" draggable="false" />
+                           </div>
+                           <div class="col-sm-6 col-md-4">
+                             <h4>{{team.$id}}</h4>
+                             <!-- <small>
+                               <cite>Denmark, Harboøre, Vandværksvej 12  <i class="glyphicon glyphicon-map-marker"></i></cite>
+                             </small> -->
+                             <p>
+                               <i class="glyphicon glyphicon-star"></i> wanted:{{team.wantedHoroscopes}} <br />
+                               <i class="glyphicon glyphicon-education"></i> wanted: {{team.wantedSkills}}<br />
+                               <i class="glyphicon glyphicon-king"></i> wanted: {{team.wantedPersonalities}}
+                             </p>
+                           </div>
+                           <div class="col-sm-6 col-md-6">
+                             <span class="label label-info pull-right" style="background-color: #ffd500;color: #1b1b1b;">size: {{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}} / {{team.currentTeamSize}}</span>
+                             <h4>Description</h4>
+                             <p>Here goes the Description...</p>
+                           </div>
+                           <div class="col-sm-6 col-md-12">
+                             <div class="row nav">
+                               <div class="col-md-12" style="margin: 0px;">
+                                 <hr style="margin-bottom: 5px;margin-top: 5px;">
+                                 members:
+                                 <span ng-repeat="member in team.teamMembers">
+                                   {{member}}
+                                 </span>
+                                 <!-- <button class="btn btn-default"><i class="fa fa-smile-o fa-lg"></i> 62</button>
+                                 <button class="btn btn-default"><i class="fa fa-heart-o fa-lg"></i> 54</button>
+                                 <button class="btn btn-default"><i class="fa fa-thumbs-o-up fa-lg"></i> 67</button> -->
+                                 <span class="pull-right">Action:
+                                   <button class="btn btn-default" ng-click="toggleSelection(team.$id)" ng-show="selection.indexOf(team.$id) < 0"> <i class="fa fa-smile-o fa-lg"></i> Join</button>
+                                   <button class="btn btn-default" ng-click="toggleSelection(team.$id)" ng-show="selection.indexOf(team.$id) > -1"> <i class="fa fa-frown-o fa-lg"></i> leave</button>
+                                 </span>
+
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
                 <div class="checkbox">
                  <label><input type="checkbox" value="{{team.$id}}"
                    ng-checked="selection.indexOf(team.$id) > -1"
