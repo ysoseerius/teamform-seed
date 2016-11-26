@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" ng-app="teamform-admin-app">
+<html lang="en" class="no-js" ng-app="teamform-member-app">
 
 <head>
     <meta charset="utf-8">
@@ -44,27 +44,9 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.png" type="image/png">
-<style>
-    h1 {
-  /* WebKit (Safari/Chrome) Only */
-  -webkit-text-stroke: 0.1px #FFD500;
-  
-  /* If we weren't using text-shadow, we'd set a fallback color
-     and use this to set color instead
-    -webkit-text-fill-color: white; */
-  
-  color:#FFD500;
-  
-  text-shadow:
-    3px 3px 0 grey,
-    /* Simulated effect for Firefox and Opera
-       and nice enhancement for WebKit */
-   -1px -1px 0 #111,  
-    1px -1px 0 #111,
-   -1px  1px 0 #111,
-    1px  1px 0 #111;
-}
+
     
+    <style>
     .myButton {
 	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
 	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
@@ -105,10 +87,9 @@
 	position:relative;
 	top:1px;
 }
-
+</style>
     
-    </style>
-  
+    
 </head>
 
 <body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
@@ -236,150 +217,123 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="main-menu">
-             <!--   <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#home">
-                            <span class="main-link">Home</span>
-                            <span class="additional-info-link bracket">
-                                start here
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            <span class="main-link">About</span>
-                            <span class="additional-info-link bracket">
-                                what it is
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#flow">
-                            <span class="main-link">Getting started</span>
-                            <span class="additional-info-link bracket">
-                                how to use
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#team">
-                            <span class="main-link">Team</span>
-                            <span class="additional-info-link bracket">
-                                our works
-                            </span>
-                        </a>
-                    </li>
-                </ul>-->
+                <ul class="nav navbar-nav">
+                </ul>
             </div>
         </div>
     </div>
- <div class="section-home" id="home">
+
+    <div class="section-home" id="home">
         <div class="overlay"></div>
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <div class="home-container"> 
-                <div class="clearfix"></div>
-               
-
-   <br>
+            <div class="home-container">
+             
+                
+                
+                
+                <br>
 
    <div class="text-center">
-<!--<strong><span class="yellow">  <h1>Administrative Page</h1> </span></strong>
-    -->
-               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Administrative Page</h2>
+    
+               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Member Page</h2>
             
 
-
-
       <h2 id="text_event_name"></h2>
+       <div id="member_page_controller" ng-controller="MemberCtrl">
 
-      <div id="admin_page_controller" ng-controller="AdminCtrl">
 
          <div class="row">
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-8 col-xs-8 text-left panel">
+            <div class="col-md-8 col-xs-8 panel">
 
 
 
-             <strong>Minimum Team Size:</strong>
+               <form class="form-horizontal">
+                  <div class="form-group">
+                     <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
+                     <div class="col-sm-5">
+                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID" style="width:300px">
+                     </div>
 
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
+					 <div class="col-sm-4">
+					   <button type="button" class="myButton" ng-click="saveFunc();" style="height:30px">Add/Modify</button>
+					  <button type="button" class="myButton" ng-click="loadFunc();" style="height:30px">Load</button>
+					  </div>
+                  </div>
 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);" style="color:Black;"></span></button>
+                  <div class="form-group">
+                     <label for="inputName" class="col-sm-3 control-label">Name</label>
+                     <div class="col-sm-9">
+                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name" style="width:300px">
+                     </div>
+                  </div>
+                  <button type="button" class="myButton" ng-click="skillsmatch();" style="height:30px">Skill match</button>
+                  <button type="button" class="myButton" ng-click="personalitymatch();" style="height:30px" >Personality match</button>
+                  <button type="button" class="myButton" ng-click="starmatch();" style="height:30px" >Star match</button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);" style="color:Black;"></span></button>
 
-            <br><br>
+<!-- 				   <div class="form-group">
+                     <label for="inputSex" class="col-sm-3 control-label">Sex</label>
+                     <div class="col-sm-9">
+                     <input type="text" class="form-control" id="inputUserName" ng-model="userSex" placeholder="Type in your sex">
+                     </div>
+                  </div> -->
 
-             <strong>Maximum Team Size: </strong>
 
-               <span class="badge">
-                 {{param.maxTeamSize}}</span>
 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);" style="color:Black;"></span></button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);" style="color:Black;"></span></button>
 
-            <br><br>
 
-             <button type="button" class="myButton" ng-click="saveFunc();"  style="background-color: #FFD500; color:black; float: left; height:30px"><strong>Create/Modify</strong></button>
+               </form>
+<div class="row">
+    <h3>  </h3>
+                </div>
+			     <div class="row text-left">
+			        <label>Search: <input ng-model="searchText"></label>
+					<label>Size: <input ng-model="sizeText" type="number"></label>
+					<h3>Recruiting:</h3>
+					<div ng-repeat="advertisement in advertisements">
+						{{advertisement.$id}}:{{advertisement.content}}
+					</div>
+					<button type="button" class="myButton" ng-click="selectall();" style="height:30px; width:120px" >iDon'tCare</button>
+                     
+				    <h3>Your team preference(s):</h3>
+					<div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
+					 <div class="checkbox">
+						<label><input type="checkbox" value="{{team.$id}}"
+						  ng-checked="selection.indexOf(team.$id) > -1"
+						  ng-click="toggleSelection(team.$id)">
+						{{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
+						<!-- {{team.teamMembers}} -->
+						</label>
+					 </div>
+
+				  </div>
+
+				  <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
+				</div>
 
 
             </div>
-
-             <div class="col-md-2 col-xs-2"></div>
-
+            <div class="col-md-2 col-xs-2"></div>
          </div>
 
 
-         <hr>
 
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
-
-				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-
-					</li>
-
-				</ul>
-
-			 </div>
-
-			 <div class="col-md-6 col-xs-6 text-left">
-
-
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
-
-				  <li>ID = {{m.$id}} <br>
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
-
-			 </div>
-		 </div>
-
-
-      </div>
+       </div>
    </div>
 
                 
-                
-                
-                </div>
-                    </div>
-                        </div>
-               
-                
+           
+             
+                   
+       
+    </div>
+ </div>
+         </div>
 
     <!-- jQuery -->
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
