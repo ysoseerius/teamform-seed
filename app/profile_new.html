@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" ng-app="teamform-admin-app">
+<html lang="en" class="no-js" ng-app="teamform-profile-app">
 
 <head>
     <meta charset="utf-8">
@@ -44,27 +44,9 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.png" type="image/png">
-<style>
-    h1 {
-  /* WebKit (Safari/Chrome) Only */
-  -webkit-text-stroke: 0.1px #FFD500;
-  
-  /* If we weren't using text-shadow, we'd set a fallback color
-     and use this to set color instead
-    -webkit-text-fill-color: white; */
-  
-  color:#FFD500;
-  
-  text-shadow:
-    3px 3px 0 grey,
-    /* Simulated effect for Firefox and Opera
-       and nice enhancement for WebKit */
-   -1px -1px 0 #111,  
-    1px -1px 0 #111,
-   -1px  1px 0 #111,
-    1px  1px 0 #111;
-}
+
     
+       <style>
     .myButton {
 	-moz-box-shadow: 0px 1px 0px 0px #fff6af;
 	-webkit-box-shadow: 0px 1px 0px 0px #fff6af;
@@ -105,10 +87,53 @@
 	position:relative;
 	top:1px;
 }
+           
+           .myButton1 {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f9f9f9), color-stop(1, #e9e9e9));
+	background:-moz-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-webkit-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-o-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:-ms-linear-gradient(top, #f9f9f9 5%, #e9e9e9 100%);
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e9e9e9',GradientType=0);
+	background-color:#f9f9f9;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e9e9e9), color-stop(1, #f9f9f9));
+	background:-moz-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-webkit-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-o-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:-ms-linear-gradient(top, #e9e9e9 5%, #f9f9f9 100%);
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
+	background-color:#e9e9e9;
+}
+.myButton1:active {
+	position:relative;
+	top:1px;
+}
 
+           
+           
+</style>
     
-    </style>
-  
+    
 </head>
 
 <body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
@@ -236,150 +261,287 @@
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="main-menu">
-             <!--   <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#home">
-                            <span class="main-link">Home</span>
-                            <span class="additional-info-link bracket">
-                                start here
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#about">
-                            <span class="main-link">About</span>
-                            <span class="additional-info-link bracket">
-                                what it is
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#flow">
-                            <span class="main-link">Getting started</span>
-                            <span class="additional-info-link bracket">
-                                how to use
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#team">
-                            <span class="main-link">Team</span>
-                            <span class="additional-info-link bracket">
-                                our works
-                            </span>
-                        </a>
-                    </li>
-                </ul>-->
+                <ul class="nav navbar-nav">
+                </ul>
             </div>
         </div>
     </div>
- <div class="section-home" id="home">
+
+   
         <div class="overlay"></div>
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <div class="home-container"> 
-                <div class="clearfix"></div>
-               
-
-   <br>
-
-   <div class="text-center">
-<!--<strong><span class="yellow">  <h1>Administrative Page</h1> </span></strong>
-    -->
-               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Administrative Page</h2>
-            
-
-
-
-      <h2 id="text_event_name"></h2>
-
-      <div id="admin_page_controller" ng-controller="AdminCtrl">
-
-         <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-8 col-xs-8 text-left panel">
-
-
-
-             <strong>Minimum Team Size:</strong>
-
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
-
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);" style="color:Black;"></span></button>
-
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);" style="color:Black;"></span></button>
-
-            <br><br>
-
-             <strong>Maximum Team Size: </strong>
-
-               <span class="badge">
-                 {{param.maxTeamSize}}</span>
-
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);" style="color:Black;"></span></button>
-
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);" style="color:Black;"></span></button>
-
-            <br><br>
-
-             <button type="button" class="myButton" ng-click="saveFunc();"  style="background-color: #FFD500; color:black; float: left; height:30px"><strong>Create/Modify</strong></button>
-
-
+            <div class="home-container">
+                 <div class="text-center">
+               <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"> Profile Page</h2>
             </div>
+           <div class="container" ng-controller="profileinput" >
 
-             <div class="col-md-2 col-xs-2"></div>
+          <div class="row col-md-3 all ">
+
+
+                <!-- <img src={{profile.pic}} class="img-responsive img-circle" alt="Responsive image">
+                  <input type="file" id="file" name="file">
+                  <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
+                </img> -->
+
+                <!-- <input type="image" src="img/propic.jpg" class="img-responsive img-circle" alt="Responsive image" />
+
+
+              </input> -->
+              <Label for="file">
+                <img src="{{profile.pic}}" class="img-responsive img-circle " alt="Responsive image">
+              </Label>
+                <input type="file" id="file" name="file" style="visibility:hidden;" >
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="myButton1" id="uploadButton" ng-click="uploadFile();"  style="height:30px; width:120px">
+          					<span class="glyphicon glyphicon-ok"></span> SAVE
+
+          				</button>
+                </div>
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="myButton1" type="button" ng-click="removeFile();"  style="height:30px; width:130px">
+          					<span class="glyphicon glyphicon-ok"></span> Remove
+
+          				</button>
+                </div>
+
+              <div class="col-md-6 Profileview">
+                <button class="myButton1" type="button" ng-click="likeFunction();"  style="height:30px; width:120px">
+        					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+        					<span class="badge"> {{profile.like.length}}</span>
+
+        				</button>
+
+              </div>
+
+              <div class="col-md-6 updateProfileview" ng-hide = "check">
+                <input type="text"  data-role="tagsinput" ng-model="SkillTemp" placeholder="Add skills" />
+                <button class="myButton" type="add" ng-click="addSkill()  style="height:30px; width:120px"">AddSkill</button>
+
+
+              </div>
+
+
+              </div>
+
+
+
+        <div class="row col-md-9 all ">
+<div class="row col-md-offset-3 ">
+      <div class="form-group">
+        <label class="col-md-8 control-label">Username</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="name" ng-model="input.name" placeholder="Name" value="profile.name" required>
+              <span id="helpUsername" class="help-block" >
+                Length limited to 5-20 characters.
+              </span>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.name}}</p>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="col-md-4 control-label">Gender</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="text" id="gender" ng-model="input.gender" placeholder="Gender" value ="{{Gender}}" required>
+
+
+        </div>
+      </div> -->
+      <div class="form-group">
+                        <label class="col-md-8 control-label">Gender</label>
+                        <div class="col-md-8 updateProfileview">
+                            <!-- <p class="form-control-static profileView">Male</p> -->
+
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Male" ng-model = "input.gender" checked> Male
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Female" ng-model = "input.gender"> Female
+                                </label>
+
+                        </div>
+                        <div class="col-md-8 Profileview">
+                          <p>{{profile.gender}}</p>
+                        </div>
+
+                    </div>
+
+        <!-- <div class="col-md-8">
+          <p>HI</p>
+        </div> -->
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Birth Date</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="birth" ng-model="input.birth" placeholder="Birth" required>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.birth}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-8 control-label">Zodiac</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="star" ng-model="input.star" placeholder="Zodiac" required>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.star}}</p>
+        </div>
+      </div>
+    
+     
+    <div class="form-group">
+        <label class="col-md-8 control-label">Location</label>
+        
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="location" ng-model="input.location" placeholder="location" required>
+
+        </div>
+     
+          
+        <div class="col-md-8 Profileview">
+          <p>{{profile.location}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-8 control-label">Personality</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <button class="myButton" ng-click="showme=true;ShowQ()"  style="height:30px; width:90px" >TEST</button>
+              <p>{{profile.personality}}</p>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.personality}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Skill</label>
+        <div class="col-md-8 updateProfileview">
+        <div class="col-md-2 "  ng-repeat="p in profile.skills">
+
+          <button class="myButton1" type="button" ng-click="removeSkill(p)" style="width:120px" >
+            <span class="btn-label" ></span> {{p}}
+            <span class="glyphicon glyphicon-remove"></span>
+
+          </button>
+        </div>
+      </div>
+      <div class="col-md-8 Profileview">
+        <div class="col-md-1 " ng-repeat="p in profile.skills">
+          <button class="control-label" style="backgroundcolor:orange">{{p}}</button>
+        </div>
+      </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-8 control-label">Description</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="description" ng-model="input.description" placeholder="description" required>
+              <span id="helpIntroduction" class="help-block updateProfileView" style="display: block;">Max 100 characters allowed.</span>
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.description}}</p>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+           <div class="col-md-offset-6 updateProfileview" ng-hide = "check" >
+
+             <button class="myButton" type="save" ng-click="saveProfile();showProfile() " style="height:30px; width:90px">Save</button>
+                 <button class="myButton" type="save" ng-click="saveProfile();editProfile()"  style="height:30px; width:90px">Edit</button>
+
+           </div>
+          
 
          </div>
 
 
-         <hr>
 
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
-
-				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-
-					</li>
-
-				</ul>
-
-			 </div>
-
-			 <div class="col-md-6 col-xs-6 text-left">
+</div>
+<div id="test" class="col-md-6 onlytest" ng-hide="check">
 
 
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
+    <div class="container" ng-show="showme">
 
-				  <li>ID = {{m.$id}} <br>
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
+          <div id="title">
+            <h1>Personlity Test</h1>
+          </div>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" ng-model="ans" > {{option1}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" ng-model="ans"> {{option2}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" ng-model="ans"> {{option3}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" ng-model="ans"> {{option4}}
+            </label>
+            <br>
+            <br>
 
-			 </div>
-		 </div>
+            <button id="next" ng-click="nextQ()"  style="height:30px; width:90px">Next</button>
+            <button id="finish" ng-click="showAns()"  style="height:30px; width:90px">Finish</button>
+            {{ans}}
+            {{answer}}
+
+            <!-- <div class='button' id='prev'><a href='#'>Prev</a></div>
+            <div class='button' id='start'> <a href='#'>Start Over</a></div> -->
 
 
-      </div>
-   </div>
+            <!-- <button class='' id='next'>Next</a></button>
+            <button class='' id='prev'>Prev</a></button>
+            <button class='' id='start'> Start Over</a></button> -->
+ </div>
 
-                
-                
-                
-                </div>
-                    </div>
-                        </div>
-               
-                
+         </div>
+
+{{input}}
+</div>
+
+
+
+   
+           
+             
+                   
+       
+    
+ </div>
+         </div>
 
     <!-- jQuery -->
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
